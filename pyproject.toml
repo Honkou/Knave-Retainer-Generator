@@ -1,0 +1,80 @@
+[tool.pytest.ini_options]
+pythonpath = ["src", "tests"]
+xfail_strict = true
+
+
+[tool.isort]
+line_length = 105
+profile = "black"
+skip_glob = "venv*"
+skip_gitignore = true
+
+[tool.black]
+line-length = 105
+include = '''
+(
+tests/|src/
+)
+'''
+
+[tool.ruff]
+line-length = 105
+target-version = "py312"
+lint.select = [
+    "ANN", # flake8-annotations
+    "B", # flake8-bugbear
+    "BLE", # flake8-blind-except (without logging the traceback)
+    "C4", # flake8-comprehensions
+    "D", # pydocstyle
+    "E", # pycodestyle error
+    "ERA", # commented-out code
+    "EXE", # flake8-executable
+    "F", # Pyflakes
+    "ICN", # flake8-future-annotations
+    "ICN", # flake8-import-conventions
+    "INT", # flake8-gettext
+    "ISC", # flake8-implicit-str-concat
+    "LOG", # flake8-logging
+    "N", # pep8-naming
+    "PGH", # pygrep-hooks
+    "PIE", # misc. lints
+    "PT", # flake8-pytest-style
+    "PYI", # flake8-pyi
+    "Q", # flake8-quotes
+    "RSE", # flake8-raise
+    "RUF", # Ruff-specific rules
+    "SIM", # flake8-simplify
+    "SLF", # flake8-self (private member access)
+    "T10", # flake8-debugger
+    "T20", # flake8-print
+    "TID", # flake8-tidy-imports
+    "TRY", # tryceratops
+    "W", # pycodestyle warning
+    "YTT" # flake8-2020
+]
+lint.ignore = [
+    "ANN002", # Missing type annotation for `*args`
+    "ANN003", # Missing type annotation for `*kwargs`
+    "ANN101", # Missing type annotation for `self`
+    "ANN102", # Missing type annotation for `cls`
+    "RUF100", # Unused blanket `noqa` directive (false positives with pre-commit)
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["ANN,D"]
+
+
+[tool.mypy]
+python_version = 3.12
+mypy_path = ["src", "tests"]
+exclude = ['venv*']
+
+explicit_package_bases = true
+ignore_missing_imports = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+strict_equality = true
+warn_unreachable = true
+warn_unused_ignores = true
+warn_unused_configs = true
+warn_redundant_casts = true
