@@ -58,18 +58,19 @@ lint.ignore = [
     "ANN101", # Missing type annotation for `self`
     "ANN102", # Missing type annotation for `cls`
     "RUF100", # Unused blanket `noqa` directive (false positives with pre-commit)
+    "D203",   # blank-line-before-class docstring required
+    "D213",   # multi-line-summary-second-line
 ]
 
 [tool.ruff.lint.per-file-ignores]
-"tests/*" = ["ANN,D"]
+"tests/*" = ["ANN", "D"]
 
 
 [tool.mypy]
 python_version = 3.12
-mypy_path = ["src", "tests"]
 exclude = ['venv*']
 
-explicit_package_bases = true
+namespace_packages = true
 ignore_missing_imports = true
 check_untyped_defs = true
 disallow_untyped_decorators = true
