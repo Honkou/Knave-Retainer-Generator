@@ -16,6 +16,8 @@ pre-commit==3.8.0
 pytest==8.3.3
 pytest-cov==6.0.0
 PyYAML==6.0.2
+requests==2.32.3
 ruff==0.6.3
+types-requests==2.32.0.20241016
 typing_extensions==4.12.2
 virtualenv==20.26.3

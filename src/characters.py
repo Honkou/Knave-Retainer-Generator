@@ -72,11 +72,7 @@ class KnaveCharacter:
 
     def __repr__(self) -> str:
         """Return the character's representation."""
-        return (
-            f"{self._name}\n"
-            f"Level {self.level} Knave character with attributes:\n"
-            f"{self.attributes.base_attributes}"
-        )
+        return f"{self._name} - Level {self.level}. Attributes:\n{self.attributes.base_attributes}\n"
 
     @property
     def level(self) -> int:
