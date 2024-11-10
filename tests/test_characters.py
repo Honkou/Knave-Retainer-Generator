@@ -41,6 +41,11 @@ class TestKnaveCharacter:
         with pytest.raises(ValueError, match="Character level cannot exceed 10."):
             character.level_up(1)
 
+    def test_character_default_name(self):
+        """Assert that a character has a name."""
+        character = KnaveCharacter()
+        assert character.name == "John"
+
 
 class TestKnaveAttributes:
 

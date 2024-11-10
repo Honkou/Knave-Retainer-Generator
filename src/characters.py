@@ -57,9 +57,10 @@ class KnaveAttributes:
 class KnaveCharacter:
     """Representation of a Knave 2ed character sheet."""
 
-    def __init__(self, level: int = 0) -> None:
+    def __init__(self, level: int = 0, name: str = "John") -> None:
         """Initialize the character with a level and attributes."""
         self._level = 0
+        self._name = name
         self._attributes = KnaveAttributes()
 
         self._validate_level(level)
@@ -68,6 +69,14 @@ class KnaveCharacter:
             self._attributes.add_first_level_attributes()
         if level > 1:
             self.level_up(level - 1)
+
+    def __repr__(self) -> str:
+        """Return the character's representation."""
+        return (
+            f"{self._name}\n"
+            f"Level {self.level} Knave character with attributes:\n"
+            f"{self.attributes.base_attributes}"
+        )
 
     @property
     def level(self) -> int:
@@ -80,6 +89,11 @@ class KnaveCharacter:
             raise ValueError(f"Character level cannot exceed {_MAX_KNAVE_LEVEL}.")
         if self._level + level < 0:
             raise ValueError("Character level cannot be negative.")
+
+    @property
+    def name(self) -> str:
+        """Return the character's name."""
+        return self._name
 
     @property
     def attributes(self) -> KnaveAttributes:
