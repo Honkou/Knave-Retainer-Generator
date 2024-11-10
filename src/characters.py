@@ -1,7 +1,9 @@
 """Module containing NPC classes."""
 
 import random
-from dataclasses import dataclass, field
+from dataclasses import dataclass
+
+_MAX_KNAVE_LEVEL = 10
 
 
 @dataclass
@@ -37,6 +39,12 @@ class KnaveAttributes:
             random_stat = random.choice(list(self.base_attributes.keys()))
             self._increase_attribute(random_stat)
 
+    def increase_random_attributes(self, amount_of_attributes: int = 3) -> None:
+        """Increase multiple random attributes by 1, with no duplicates."""
+        attrs_to_increase = random.sample(list(self.base_attributes.keys()), amount_of_attributes)
+        for attribute in attrs_to_increase:
+            self._increase_attribute(attribute)
+
     @property
     def statistics_sum(self) -> int:
         """Return the sum of all 6 statistics. Mostly used as a sanity check."""
@@ -46,8 +54,41 @@ class KnaveAttributes:
         return total
 
 
-@dataclass
 class KnaveCharacter:
     """Representation of a Knave 2ed character sheet."""
 
-    attributes: KnaveAttributes = field(default_factory=KnaveAttributes)
+    def __init__(self, level: int = 0) -> None:
+        """Initialize the character with a level and attributes."""
+        self._level = 0
+        self._attributes = KnaveAttributes()
+
+        self._validate_level(level)
+        if level > 0:
+            self._level = 1
+            self._attributes.add_first_level_attributes()
+        if level > 1:
+            self.level_up(level - 1)
+
+    @property
+    def level(self) -> int:
+        """Return the character's level."""
+        return self._level
+
+    def _validate_level(self, level: int) -> None:
+        """Validate the level-up is legal before increasing it."""
+        if self._level + level > _MAX_KNAVE_LEVEL:
+            raise ValueError(f"Character level cannot exceed {_MAX_KNAVE_LEVEL}.")
+        if self._level + level < 0:
+            raise ValueError("Character level cannot be negative.")
+
+    @property
+    def attributes(self) -> KnaveAttributes:
+        """Return the character's attributes class."""
+        return self._attributes
+
+    def level_up(self, amount: int = 1) -> None:
+        """Increase the character's level by the amount specified."""
+        self._validate_level(amount)
+        self._level += amount
+        for _ in range(amount):
+            self._attributes.increase_random_attributes(3)

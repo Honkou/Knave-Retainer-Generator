@@ -61,6 +61,7 @@ lint.ignore = [
     "RUF100", # Unused blanket `noqa` directive (false positives with pre-commit)
     "D203",   # blank-line-before-class docstring required
     "D213",   # multi-line-summary-second-line
+    "TRY003", # Avoid specifying long messages outside the exception class
 ]
 
 [tool.ruff.lint.per-file-ignores]
