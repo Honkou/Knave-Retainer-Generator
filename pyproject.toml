@@ -1,6 +1,7 @@
 [tool.pytest.ini_options]
 pythonpath = ["src", "tests"]
 xfail_strict = true
+addopts = "--cov-report lcov:lcov.info --cov-report term:skip-covered --cov=src tests/"
 
 
 [tool.isort]
