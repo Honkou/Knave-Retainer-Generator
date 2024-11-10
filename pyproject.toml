@@ -67,7 +67,7 @@ lint.ignore = [
 
 
 [tool.mypy]
-python_version = 3.12
+python_version = "3.12"
 exclude = ['venv*']
 
 namespace_packages = true
